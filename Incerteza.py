@@ -112,33 +112,44 @@ def evaluate(lista):
         elif x == "-":
             now = restar(now, next_value(stack))
         else:
-            print("Que esta pasando?")
-
+            print("Unacceptable character found")
+            
     return now
-
-
-
 
 def main():
     global variables, lista
     
-    print("Welcome to the uncertainty calculator")
+    print("##- Welcome to the uncertainty calculator -##")
     
     def new_expresion():
+        symbols = "+-*/()"
         while True:
             try: 
-                string = input("Type in the formula\nVariables should be only 1 character\n>")
+                string = input("Type in the formula: ")
                 if not string: raise ValueError
-                
-                
-                
-                
+
+                listedstring = []
+                for x in string:
+                    listedstring.append(x)
+                    
+                    if not x.isalpha():
+                        
+                        if x not in symbols:
+                            raise NameError
+                    
+                for x in range(len(listedstring)-1):
+                    if listedstring[x].isalpha() and listedstring[x+1].isalpha(): raise KeyError
+    
             except ValueError:
-                print("Empty strings are not allowed")
+                print(">ERROR> Empty strings are not allowed\n")
+            except KeyError:
+                print(">ERROR> Variables should only be 1 character, for multiplication use '*'\n")
+            except NameError:
+                print(">ERROR> Don't use numbers. The only operators allowed are: {}".format(symbols))
             else:
                 return string
                 
-    expresion = input("Type in the formula\nVariables should be only 1 character\n>")
+    expresion = new_expresion()
     
     try:
         while True:
@@ -147,11 +158,8 @@ def main():
             managestring(expresion)
             evaluate(lista).display()
             if "1" != input("\nExit the program with 'ctrl+C'\n\t[1] - Keep the current formula: '{}'\n\t[2] - New Formula\n>".format(expresion)):
-                expresion = input("Type in the new formula\n>")     
+                expresion = new_expresion()    
     except KeyboardInterrupt:
         exit("\n=-= Bye =-=")
         
-
 main()
-
-

@@ -1,37 +1,85 @@
 import math
 
 class variable:
+    """A format for all the data in the expresion
+    """
     def __init__(self,x,dx) -> None:
         self.value = x
         self.d_value = dx
         
     def display(self):
+        """Prints the value and the uncertainty in a correct format
+        """
         print("{} ± {}".format(self.value, self.d_value))
 
 add_sub = lambda dx, dy: math.sqrt(dx*2 + dy*2)
 mul_div = lambda x, y, dx, dy: math.sqrt((dx/x)*2+(dy/y)*2)
 
-def sumar(x:variable, y:variable):
+def sumar(x:variable, y:variable) -> variable:
+    """Adds two values with uncertainty
+
+    Args:
+        x (variable): Variable with value and uncertainty
+        y (variable): Variable with value and uncertainty
+
+    Returns:
+        variable: The addition of the two values
+    """
     res = x.value + y.value
     d_res = add_sub(x.d_value, y.d_value)
     return variable(res,d_res)
 
-def restar(x:variable, y:variable):
+def restar(x:variable, y:variable) -> variable:
+    """Substracts two numbers and gives the uncertainty
+
+    Args:
+        x (variable): Variable with value and uncertainty 
+        y (variable): Variable with value and uncertainty
+
+    Returns:
+        variable: The substraction of the two values
+    """
     res = x.value - y.value
     d_res = add_sub(x.d_value, y.d_value)
     return variable(res, d_res)
 
-def multiplicar(x:variable, y:variable):
+def multiplicar(x:variable, y:variable) -> variable:
+    """The multiplication of two numbres and gives uncertainty
+
+    Args:
+        x (variable): Variable with value and uncertainty
+        y (variable): Variable with value and uncertainty
+
+    Returns:
+        variable: The product of the two numbers
+    """
     res = x.value * y.value
     d_res = mul_div(x.value, y.value, x.d_value, y.d_value)
     return variable(res, d_res)
 
-def dividir(x:variable, y:variable):
+def dividir(x:variable, y:variable) -> variable:
+    """Divides two numbers and gives the uncertainty
+
+    Args:
+        x (variable): Dividend a variable with value and uncertainty
+        y (variable): Divisor a variable with value and uncertainty, shuoldn't be 0
+
+    Returns:
+        variable: The division of the two values
+    """
     res = x.value / y.value
     d_res = mul_div(x.value, y.value, x.d_value, y.d_value)
     return variable(res, d_res)
 
 def userinput(message):
+    """Asks the user for a float value and manages exceptions
+
+    Args:
+        message (string): Message displayed when prompting the user
+
+    Returns:
+        float: Number chosen by the user
+    """
     while True:
        
         try:
@@ -39,13 +87,14 @@ def userinput(message):
             return inner
         except ValueError:
             print("Not a number")
-        
-
-
-#* Lectura
-
 
 def managestring(string):
+    """Reads the initial ecuation string provided by the user
+    and isolates the variables for correct value asignations
+
+    Args:
+        string (string): Formmula entered by the user
+    """
     for x in string:
         
         lista.append(x)
@@ -57,16 +106,23 @@ def managestring(string):
             
             variables.update({x:variable(ex,dex)}) 
 
-#* Operaciones
-
 def next_value(lista):
+    """Returns the next value fron the original expresion and checks
+    if it should start a substack
+
+    Args:
+        lista (list): Initial expresion converted to a list
+
+    Returns:
+        string: The next value of the list, while deleting itself from the list
+    """
     
     try:
         x = lista.pop(0) 
     except IndexError:
         print("Incomplete expresion, check and try again")
     
-    if x == "(":
+    if x == "(": #If it detects a parenthesis it isolates the part inside the parenthesis and append the result of that
         substack = []
         x = next_value(lista)
         while x != ")":
@@ -75,11 +131,21 @@ def next_value(lista):
         return evaluate(substack)
 
     if x in variables:
-        return variables[x]
+        return variables[x] #If the value is a variable it returns instead the object
     else: 
         return x
 
 def evaluate(lista):
+    """Evaluates the expresion, first it starts putting everything into a stack
+    if it finds a multiplication it pushes the product of the operation to the stack 
+    parenthesis are taken into account in nextvalue()
+
+    Args:
+        lista (list): The expresion turned into a list
+
+    Returns:
+        variable: The result of the whole expresion in variable form
+    """
         
     stack = []
     
@@ -122,6 +188,17 @@ def main():
     print("##- Welcome to the uncertainty calculator -##")
     
     def new_expresion():
+        """Makes sure the formula entered by the user is in a correct format
+        and wont explode the code
+
+        Raises:
+            ValueError: If the string is empty
+            NameError: If there variables with more than 1 character
+            KeyError: If there is an unaccounted value
+
+        Returns:
+            string: The formula in a correct format
+        """
         symbols = "+-*/()"
         while True:
             try: 
@@ -162,4 +239,5 @@ def main():
     except KeyboardInterrupt:
         exit("\n=-= Bye =-=")
         
-main()
+if __name__ == "__main__":
+    main()

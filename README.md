@@ -27,6 +27,7 @@ You can't include numbers so if you need a constant you should declare it as a v
 
 ### Example of use
 In this case we will be using the following equation:
+
 ![imagen](https://user-images.githubusercontent.com/64183934/146873648-deea00b3-ad8f-4a85-9a3d-f3252a069631.png)
 
 The correct way to declare this function would be:  
@@ -46,4 +47,5 @@ The program would print something like this:
 ```python
 -1.1415000000000002 ± 2.413690382068065
 ```
-Then you can enter another formula or try the same one with different values. You can also exit the program with `ctrl+c`
+Then you can enter another formula or try the same one with different values. 
+You can also exit the program with `ctrl+c`

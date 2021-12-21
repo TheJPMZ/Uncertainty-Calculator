@@ -37,14 +37,14 @@ Type in the formula: "((a+b)/(b*c))-p"
 ```
 
 Then you would need to register the value and uncertainty of every variable, for example here to declare the $\pi$:
-```python
+```c
 Value of p
 >3.141592
 Enter uncertainty of p
 >0
 ```
 The program would print something like this:
-```python
+```c
 -1.1415000000000002 ± 2.413690382068065
 ```
 Then you can enter another formula or try the same one with different values. 

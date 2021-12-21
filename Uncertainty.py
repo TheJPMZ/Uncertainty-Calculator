@@ -102,7 +102,7 @@ def managestring(string):
         if x.isalpha() and x not in variables: 
             
             ex = userinput("Value of {}\n>".format(x))
-            dex = userinput("Enter uncertainty of {}\n".format(x))
+            dex = userinput("Enter uncertainty of {}\n>".format(x))
             
             variables.update({x:variable(ex,dex)}) 
 

@@ -27,9 +27,7 @@ You can't include numbers so if you need a constant you should declare it as a v
 
 ### Example of use
 In this case we will be using the following equation:
-$$
-\theta = (\frac{a+b}{bc})-\pi\,
-$$
+![imagen](https://user-images.githubusercontent.com/64183934/146873648-deea00b3-ad8f-4a85-9a3d-f3252a069631.png)
 
 The correct way to declare this function would be:  
 

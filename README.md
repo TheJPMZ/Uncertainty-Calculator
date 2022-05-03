@@ -36,7 +36,7 @@ The correct way to declare this function would be:
 Type in the formula: "((a+b)/(b*c))-p"
 ```
 
-Then you would need to register the value and uncertainty of every variable, for example here to declare the $\pi$:
+Then you would need to register the value and uncertainty of every variable, for example here to declare the $\pi$ :
 ```c
 Value of p
 >3.141592
